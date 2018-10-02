@@ -23,12 +23,21 @@ module.exports = function (router) {
    * {"name": "serandives app"}
    */
   router.post('/', validators.create, sanitizers.create, function (req, res) {
-    Otps.createIt(req, res, req.body, function (err, otp) {
+    Otps.remove({
+      user: req.user.id,
+      name: req.body.name
+    }, function (err) {
       if (err) {
-        log.error('otps:create', err);
+        log.error('otps:remove', err);
         return res.pond(errors.serverError());
       }
-      res.locate(otp.id).status(201).send(otp);
+      Otps.create(req.body, function (err, otp) {
+        if (err) {
+          log.error('otps:create', err);
+          return res.pond(errors.serverError());
+        }
+        res.locate(otp.id).status(201).send(otp);
+      });
     });
   });
 

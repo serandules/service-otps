@@ -15,6 +15,7 @@
     "lodash": "4.17.4",
     "logger": "serandules/logger#master",
     "utils": "serandules/utils#master",
+    "model-users": "serandules/model-users#master",
     "model-otps": "serandules/model-otps#master",
     "mongutils": "serandules/mongutils#master",
     "errors": "serandules/errors#master",
