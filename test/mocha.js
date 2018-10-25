@@ -6,3 +6,5 @@ nconf.overrides({
     "SERVICE_TOKENS": "master:accounts:/apis/v/tokens",
     "LOCAL_CLIENTS": __dirname + "/..:accounts:/apis/v/otps"
 });
+
+require('pot');
