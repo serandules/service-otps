@@ -1,17 +1,13 @@
 var log = require('logger')('service-locations');
 var bodyParser = require('body-parser');
 
-var errors = require('errors');
-var utils = require('utils');
-var mongutils = require('mongutils');
 var auth = require('auth');
 var throttle = require('throttle');
 var serandi = require('serandi');
-
+var model = require('model');
 var Otps = require('model-otps');
 
 var validators = require('./validators');
-var sanitizers = require('./sanitizers');
 
 module.exports = function (router, done) {
   router.use(serandi.ctx);
@@ -19,10 +15,11 @@ module.exports = function (router, done) {
   router.use(throttle.apis('otps'));
   router.use(bodyParser.json());
 
-  /**
-   * {"name": "serandives app"}
-   */
-  router.post('/', validators.create, sanitizers.create, function (req, res, next) {
+  router.post('/',
+    serandi.json,
+    serandi.create(Otps),
+    validators.create,
+    function (req, res, next) {
     Otps.remove({
       user: req.user.id,
       name: req.body.name
@@ -30,7 +27,7 @@ module.exports = function (router, done) {
       if (err) {
         return next(err);
       }
-      Otps.create(req.body, function (err, otp) {
+      model.create(req.ctx, function (err, otp) {
         if (err) {
           return next(err);
         }
@@ -39,8 +36,10 @@ module.exports = function (router, done) {
     });
   });
 
-  router.get('/:id', validators.findOne, sanitizers.findOne, function (req, res, next) {
-    mongutils.findOne(Otps, req.query, function (err, otp) {
+  router.get('/:id',
+    serandi.findOne(Otps),
+    function (req, res, next) {
+    model.findOne(req.ctx, function (err, otp) {
       if (err) {
         return next(err);
       }
