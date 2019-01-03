@@ -1,5 +1,6 @@
 var log = require('logger')('service-otps:validators');
 var errors = require('errors');
+var Users = require('model-users');
 
 exports.create = function (req, res, next) {
   var data = req.body;
@@ -8,7 +9,7 @@ exports.create = function (req, res, next) {
     return res.pond(errors.unprocessableEntity('\'password\' needs to be specified'));
   }
   var user = req.user;
-  user.auth(password, function (err, auth) {
+  Users.auth(user, password, function (err, auth) {
     if (err) {
       log.error('users:auth', err);
       return res.pond(errors.serverError());
