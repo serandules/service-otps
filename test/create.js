@@ -194,7 +194,8 @@ describe('POST /otps', function () {
       r.statusCode.should.equal(201);
       should.exist(b);
       should.exist(b.id);
-      should.exist(b.value);
+      should.exist(b.strong);
+      should.exist(b.weak);
       should.exist(r.headers['location']);
       r.headers['location'].should.equal(pot.resolve('accounts', '/apis/v/otps/' + b.id));
       done();
@@ -219,7 +220,8 @@ describe('POST /otps', function () {
       r.statusCode.should.equal(201);
       should.exist(b);
       should.exist(b.id);
-      should.exist(b.value);
+      should.exist(b.strong);
+      should.exist(b.weak);
       should.exist(r.headers['location']);
       r.headers['location'].should.equal(pot.resolve('accounts', '/apis/v/otps/' + b.id));
       var old = b.id;
@@ -240,7 +242,8 @@ describe('POST /otps', function () {
         r.statusCode.should.equal(201);
         should.exist(b);
         should.exist(b.id);
-        should.exist(b.value);
+        should.exist(b.strong);
+        should.exist(b.weak);
         should.exist(r.headers['location']);
         r.headers['location'].should.equal(pot.resolve('accounts', '/apis/v/otps/' + b.id));
         request({

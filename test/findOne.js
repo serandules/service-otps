@@ -25,7 +25,8 @@ describe('GET /otps', function () {
       r.statusCode.should.equal(201);
       should.exist(b);
       should.exist(b.id);
-      should.exist(b.value);
+      should.exist(b.strong);
+      should.exist(b.weak);
       should.exist(r.headers['location']);
       r.headers['location'].should.equal(pot.resolve('accounts', '/apis/v/otps/' + b.id));
       done(null, b);
@@ -61,7 +62,8 @@ describe('GET /otps', function () {
         r.statusCode.should.equal(200);
         should.exist(b);
         should.exist(b.id);
-        should.exist(b.value);
+        should.exist(b.strong);
+        should.exist(b.weak);
         done();
       });
     });
