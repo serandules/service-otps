@@ -18,7 +18,7 @@ describe('POST /otps', function () {
 
   it('with no media type', function (done) {
     request({
-      uri: pot.resolve('accounts', '/apis/v/otps'),
+      uri: pot.resolve('apis', '/v/otps'),
       method: 'POST',
       auth: {
         bearer: client.users[0].token
@@ -39,7 +39,7 @@ describe('POST /otps', function () {
 
   it('with unsupported media type', function (done) {
     request({
-      uri: pot.resolve('accounts', '/apis/v/otps'),
+      uri: pot.resolve('apis', '/v/otps'),
       method: 'POST',
       headers: {
         'Content-Type': 'application/xml'
@@ -63,7 +63,7 @@ describe('POST /otps', function () {
 
   it('without name', function (done) {
     request({
-      uri: pot.resolve('accounts', '/apis/v/otps'),
+      uri: pot.resolve('apis', '/v/otps'),
       method: 'POST',
       json: {
         password: 'dummy'
@@ -86,7 +86,7 @@ describe('POST /otps', function () {
 
   it('without password', function (done) {
     request({
-      uri: pot.resolve('accounts', '/apis/v/otps'),
+      uri: pot.resolve('apis', '/v/otps'),
       method: 'POST',
       json: {
         name: 'password-update'
@@ -109,7 +109,7 @@ describe('POST /otps', function () {
 
   it('with invalid password', function (done) {
     request({
-      uri: pot.resolve('accounts', '/apis/v/otps'),
+      uri: pot.resolve('apis', '/v/otps'),
       method: 'POST',
       json: {
         name: 'password-update',
@@ -133,7 +133,7 @@ describe('POST /otps', function () {
 
   it('without token', function (done) {
     request({
-      uri: pot.resolve('accounts', '/apis/v/otps'),
+      uri: pot.resolve('apis', '/v/otps'),
       method: 'POST',
       json: {
         name: 'password-update',
@@ -154,7 +154,7 @@ describe('POST /otps', function () {
 
   it('with invalid token', function (done) {
     request({
-      uri: pot.resolve('accounts', '/apis/v/otps'),
+      uri: pot.resolve('apis', '/v/otps'),
       method: 'POST',
       json: {
         name: 'password-update',
@@ -178,7 +178,7 @@ describe('POST /otps', function () {
 
   it('with valid password', function (done) {
     request({
-      uri: pot.resolve('accounts', '/apis/v/otps'),
+      uri: pot.resolve('apis', '/v/otps'),
       method: 'POST',
       json: {
         name: 'password-update',
@@ -197,14 +197,14 @@ describe('POST /otps', function () {
       should.exist(b.strong);
       should.exist(b.weak);
       should.exist(r.headers['location']);
-      r.headers['location'].should.equal(pot.resolve('accounts', '/apis/v/otps/' + b.id));
+      r.headers['location'].should.equal(pot.resolve('apis', '/v/otps/' + b.id));
       done();
     });
   });
 
   it('removes old one', function (done) {
     request({
-      uri: pot.resolve('accounts', '/apis/v/otps'),
+      uri: pot.resolve('apis', '/v/otps'),
       method: 'POST',
       json: {
         name: 'password-update',
@@ -223,10 +223,10 @@ describe('POST /otps', function () {
       should.exist(b.strong);
       should.exist(b.weak);
       should.exist(r.headers['location']);
-      r.headers['location'].should.equal(pot.resolve('accounts', '/apis/v/otps/' + b.id));
+      r.headers['location'].should.equal(pot.resolve('apis', '/v/otps/' + b.id));
       var old = b.id;
       request({
-        uri: pot.resolve('accounts', '/apis/v/otps'),
+        uri: pot.resolve('apis', '/v/otps'),
         method: 'POST',
         json: {
           name: 'password-update',
@@ -245,9 +245,9 @@ describe('POST /otps', function () {
         should.exist(b.strong);
         should.exist(b.weak);
         should.exist(r.headers['location']);
-        r.headers['location'].should.equal(pot.resolve('accounts', '/apis/v/otps/' + b.id));
+        r.headers['location'].should.equal(pot.resolve('apis', '/v/otps/' + b.id));
         request({
-          uri: pot.resolve('accounts', '/apis/v/otps/' + old),
+          uri: pot.resolve('apis', '/v/otps/' + old),
           method: 'GET',
           json: true,
           auth: {

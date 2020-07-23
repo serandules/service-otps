@@ -1,3 +1,3 @@
 var pot = require('pot');
 
-pot.throttlit('accounts', 'otps');
+pot.throttlit('apis', 'otps');

@@ -9,7 +9,7 @@ describe('GET /otps', function () {
 
   var createOTPS = function (token, done) {
     request({
-      uri: pot.resolve('accounts', '/apis/v/otps'),
+      uri: pot.resolve('apis', '/v/otps'),
       method: 'POST',
       json: {
         name: 'password-update',
@@ -28,7 +28,7 @@ describe('GET /otps', function () {
       should.exist(b.strong);
       should.exist(b.weak);
       should.exist(r.headers['location']);
-      r.headers['location'].should.equal(pot.resolve('accounts', '/apis/v/otps/' + b.id));
+      r.headers['location'].should.equal(pot.resolve('apis', '/v/otps/' + b.id));
       done(null, b);
     })
   };
@@ -49,7 +49,7 @@ describe('GET /otps', function () {
         return done(err);
       }
       request({
-        uri: pot.resolve('accounts', '/apis/v/otps/' + otp.id),
+        uri: pot.resolve('apis', '/v/otps/' + otp.id),
         method: 'GET',
         json: true,
         auth: {
@@ -75,7 +75,7 @@ describe('GET /otps', function () {
         return done(err);
       }
       request({
-        uri: pot.resolve('accounts', '/apis/v/otps/' + otp.id),
+        uri: pot.resolve('apis', '/v/otps/' + otp.id),
         method: 'GET',
         json: true,
         auth: {
